@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { useAppContext, View } from "../types";
 import { languageNames, Language } from "../translations";
 import { SoundToggle } from "./SoundEffects";
+import { LanguageDropdown } from "./LanguageDropdown";
 
 // Modern SVG Icons with enhanced styling
 const GlobeIcon: React.FC<{ className?: string }> = ({
@@ -411,50 +412,12 @@ export const Header: React.FC = () => {
             {/* Sound Toggle */}
             <SoundToggle />
 
-            {/* Language Selector */}
-            <div className="relative" ref={languageDropdownRef}>
-              <button
-                onClick={() => setLanguageDropdownOpen(!languageDropdownOpen)}
-                className="btn-ghost flex items-center gap-2"
-              >
-                <GlobeIcon className="w-4 h-4" />
-                <span className="hidden md:inline font-medium">
-                  {languageNames[language]}
-                </span>
-                <span className="md:hidden font-bold text-xs">
-                  {language.toUpperCase()}
-                </span>
-                <ChevronDownIcon
-                  className={`w-3 h-3 transition-transform duration-200 ${languageDropdownOpen ? "rotate-180" : ""}`}
-                />
-              </button>
-
-              {languageDropdownOpen && (
-                <div className="absolute right-0 top-full mt-3 w-56 bg-gray-800 border border-gray-700 rounded-2xl shadow-xl z-50 animate-scale-in backdrop-blur-lg">
-                  <div className="p-3">
-                    <div className="px-4 py-3 text-caption font-semibold text-gray-400 border-b border-gray-600 mb-3">
-                      Select Language
-                    </div>
-                    {(Object.keys(languageNames) as Language[]).map((lang) => (
-                      <button
-                        key={lang}
-                        onClick={() => handleLanguageSelect(lang)}
-                        className={`w-full text-left px-4 py-4 rounded-xl text-sm transition-all duration-200 flex items-center justify-between ${
-                          language === lang
-                            ? "bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-semibold shadow-brand"
-                            : "text-gray-300 hover:bg-gray-700 hover:text-white"
-                        }`}
-                      >
-                        <span>{languageNames[lang]}</span>
-                        {language === lang && (
-                          <div className="w-2 h-2 bg-white rounded-full animate-pulse-soft"></div>
-                        )}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
+            {/* Modern Language Selector */}
+            <LanguageDropdown 
+              size="sm" 
+              placement="bottom-right"
+              className="hidden md:block"
+            />
 
             {/* Mobile Menu Button */}
             <button
@@ -535,6 +498,15 @@ export const Header: React.FC = () => {
                   )}
                 </button>
               ))}
+              
+              {/* Mobile Language Selector */}
+              <div className="pt-4 border-t border-light">
+                <LanguageDropdown 
+                  size="md" 
+                  placement="bottom-left"
+                  className="w-full"
+                />
+              </div>
             </nav>
           </div>
         )}
