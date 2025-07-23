@@ -300,19 +300,20 @@ export const LanguageDropdown: React.FC<LanguageDropdownProps> = ({
           <div
             className={`
               absolute ${placementClasses[placement]} ${currentSize.dropdown}
-              bg-white border border-gray-200 rounded-2xl shadow-2xl z-50
+              bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 
+              border border-purple-500/30 rounded-2xl shadow-2xl z-50
               animate-scale-in origin-top
               max-h-80 overflow-hidden
-              backdrop-blur-lg
+              backdrop-blur-lg ring-1 ring-purple-400/20
             `}
             role="listbox"
             aria-label="Language options"
           >
             {/* Search Input */}
             {showSearch && (
-              <div className="p-3 border-b border-gray-100">
+              <div className="p-3 border-b border-slate-700/50 bg-slate-800/50">
                 <div className="relative">
-                  <SearchIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                  <SearchIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-purple-400" />
                   <input
                     ref={searchRef}
                     type="text"
@@ -323,17 +324,18 @@ export const LanguageDropdown: React.FC<LanguageDropdownProps> = ({
                     className={`
                       ${currentSize.search}
                       w-full pl-10 pr-10
-                      bg-gray-50 border border-gray-200 rounded-xl
-                      text-gray-700 placeholder-gray-400
+                      bg-slate-700/50 border border-slate-600/50 rounded-xl
+                      text-white placeholder-slate-400
                       transition-all duration-200
-                      focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-transparent
+                      focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-400
+                      hover:bg-slate-600/50
                     `}
                     aria-label="Search languages"
                   />
                   {searchQuery && (
                     <button
                       onClick={clearSearch}
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-purple-400 transition-colors"
                       aria-label="Clear search"
                     >
                       <XIcon className="w-4 h-4" />
@@ -346,15 +348,15 @@ export const LanguageDropdown: React.FC<LanguageDropdownProps> = ({
             {/* Options List */}
             <ul
               ref={listRef}
-              className="max-h-60 overflow-y-auto py-2"
+              className="max-h-60 overflow-y-auto py-2 bg-slate-800/30"
               role="listbox"
               aria-multiselectable={variant === "multi"}
             >
               {filteredLanguages.length === 0 ? (
-                <li className="px-4 py-8 text-center text-gray-500">
+                <li className="px-4 py-8 text-center text-slate-400">
                   <div className="text-4xl mb-2">🔍</div>
-                  <div className="text-sm">No languages found</div>
-                  <div className="text-xs text-gray-400 mt-1">
+                  <div className="text-sm text-white">No languages found</div>
+                  <div className="text-xs text-slate-500 mt-1">
                     Try adjusting your search
                   </div>
                 </li>
@@ -375,10 +377,10 @@ export const LanguageDropdown: React.FC<LanguageDropdownProps> = ({
                           text-left transition-all duration-150
                           ${
                             isSelected
-                              ? "bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-semibold"
+                              ? "bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 text-white font-semibold shadow-lg"
                               : isFocused
-                              ? "bg-gray-100 text-gray-900"
-                              : "text-gray-700 hover:bg-gray-50"
+                              ? "bg-slate-700/70 text-white"
+                              : "text-slate-200 hover:bg-slate-700/50 hover:text-white"
                           }
                         `}
                         onMouseEnter={() => setFocusedIndex(index)}
@@ -387,19 +389,19 @@ export const LanguageDropdown: React.FC<LanguageDropdownProps> = ({
                           {/* Language Flag/Indicator */}
                           <div
                             className={`
-                              w-3 h-3 rounded-full border-2
+                              w-3 h-3 rounded-full border-2 transition-all duration-200
                               ${
                                 isSelected
-                                  ? "bg-white border-white"
-                                  : "border-gray-300"
+                                  ? "bg-white border-white shadow-lg"
+                                  : "border-slate-500 hover:border-purple-400"
                               }
                             `}
                           />
-                          <span>{languageNames[lang]}</span>
+                          <span className="font-medium">{languageNames[lang]}</span>
                         </div>
                         
                         {isSelected && (
-                          <CheckIcon className="w-4 h-4 text-white animate-scale-in" />
+                          <CheckIcon className="w-4 h-4 text-white animate-scale-in drop-shadow-lg" />
                         )}
                       </button>
                     </li>
@@ -410,15 +412,15 @@ export const LanguageDropdown: React.FC<LanguageDropdownProps> = ({
 
             {/* Multi-select Actions */}
             {variant === "multi" && selectedLanguages.length > 0 && (
-              <div className="p-3 border-t border-gray-100 bg-gray-50">
+               <div className="p-3 border-t border-slate-700/50 bg-slate-800/70">
                 <div className="flex items-center justify-between gap-3">
-                  <span className="text-sm text-gray-600">
+                   <span className="text-sm text-slate-300">
                     {selectedLanguages.length} selected
                   </span>
                   <div className="flex gap-2">
                     <button
                       onClick={() => setSelectedLanguages([])}
-                      className="px-3 py-1 text-xs font-medium text-gray-600 hover:text-gray-800 transition-colors"
+                       className="px-3 py-1 text-xs font-medium text-slate-400 hover:text-white transition-colors rounded-lg hover:bg-slate-700/50"
                     >
                       Clear all
                     </button>
@@ -429,7 +431,7 @@ export const LanguageDropdown: React.FC<LanguageDropdownProps> = ({
                         setSearchQuery("");
                         setFocusedIndex(-1);
                       }}
-                      className="px-4 py-1 bg-brand-primary text-white text-xs font-medium rounded-lg hover:bg-brand-primary-dark transition-colors"
+                       className="px-4 py-1 bg-gradient-to-r from-purple-600 to-pink-500 text-white text-xs font-medium rounded-lg hover:from-purple-700 hover:to-pink-600 transition-all duration-200 shadow-lg"
                     >
                       Apply
                     </button>
