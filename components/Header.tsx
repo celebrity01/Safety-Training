@@ -430,9 +430,9 @@ export const Header: React.FC = () => {
               </button>
 
               {languageDropdownOpen && (
-                <div className="absolute right-0 top-full mt-3 w-56 card-elevated shadow-xl z-50 animate-scale-in">
+                <div className="absolute right-0 top-full mt-3 w-56 bg-gray-800 border border-gray-700 rounded-2xl shadow-xl z-50 animate-scale-in backdrop-blur-lg">
                   <div className="p-3">
-                    <div className="px-4 py-3 text-caption font-semibold text-tertiary border-b border-light mb-3">
+                    <div className="px-4 py-3 text-caption font-semibold text-gray-400 border-b border-gray-600 mb-3">
                       Select Language
                     </div>
                     {(Object.keys(languageNames) as Language[]).map((lang) => (
@@ -441,8 +441,8 @@ export const Header: React.FC = () => {
                         onClick={() => handleLanguageSelect(lang)}
                         className={`w-full text-left px-4 py-4 rounded-xl text-sm transition-all duration-200 flex items-center justify-between ${
                           language === lang
-                            ? "bg-gradient-brand text-white font-semibold shadow-brand"
-                            : "text-secondary hover:bg-tertiary hover:text-primary"
+                            ? "bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-semibold shadow-brand"
+                            : "text-gray-300 hover:bg-gray-700 hover:text-white"
                         }`}
                       >
                         <span>{languageNames[lang]}</span>
